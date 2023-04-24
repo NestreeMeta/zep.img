@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>게임 대화창 예시</title>
+    <style>
+      /* 스타일링 */
+      body {
+        background-color: #333333;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .message {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        width: 380px;
+      }
+      .player {
+        background-color: #ffffff;
+        color: #333333;
+        float: left;
+      }
+      .npc {
+        background-color: #00ff00;
+        color: #333333;
+        float: right;
+      }
+      /* 추가 스타일링 */
+      .hidden {
+        display: none;
+      }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <div id="img1">
+            <img src="./1.png" width="400px">
+            <div id="text1" class="message player ">
+                <p>어느 가난한 나무꾼 가족이 살고있었다. 먹을 식량이 부족해져 부부는 아이들을 버리기로 한다. 헨젤과 그레텔은 몰래 빵 부스러기를 떨어트려 돌아가는 길을 남겼지만 동물들이 먹어버려 길을 잃게된다.
+                </p>
+                <button onclick="showText2()" style="float:right;">다음</button>
+            </div>
+        </div>
+
+        <div id="img2" class="hidden">
+            <img src="./2.png" width="400px">
+            <div id="text2" class="message player ">
+                <p>그러던 중 숲속에 과자로 되어진 집을 발견하게 된다. 배가 고팠던 남매는 과자집을 먹기 시작했다. 이를 지켜보던 집주인 할머니는 헨젤과 그레텔을 머물게 허락한다.</p>
+                <button onclick="showText1()" >이전</button>
+                <button onclick="showText3()" style="float:right;">다음</button>
+            </div>
+        </div>
+
+        <div id="img3" class="hidden">
+            <img src="./3.png" width="400px">
+            <div id="text3" class="message player ">
+                <p>그러나 사실 할머니는 아이들을 가두어 잡아먹는 마녀 였고, 아이들은 감옥에 갇히게 된다.</p>
+                <button onclick="showText2()" >이전</button>
+                <button onclick="showText4()" style="float:right;">다음</button>
+            </div>
+        </div>
+
+        <div id="img4" class="hidden">
+            <img src="./4.png" width="400px">
+            <div id="text4" class="message player ">
+                <p>헨젤과 그레텔은 서로 다른 감옥에 갇혀 지내게 된다.</p>
+                <button onclick="showText3()" >이전</button>
+                <button onclick="showText5()" style="float:right;">다음</button>
+            </div>
+        </div>
+
+        <div id="img5" class="hidden">
+            <img src="./5.png" width="400px">
+            <div id="text5" class="message player ">
+                <p>그러던 중 헨젤을 탈출을 하기로 다짐한다.</p>
+                <button onclick="showText4()" >이전</button>
+                <button onclick="closeWidget()" style="float:right;">게임 시작</button>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+
+function closeWidget() {
+			// App으로 메시지를 보냄.
+			window.parent.postMessage(
+				{
+					type: "close",
+				},
+				"*"
+			);
+		}
+
+function typeWriter(text, element) {
+  let i = 0;
+  let interval = setInterval(function() {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+    } else {
+      clearInterval(interval);
+    }
+  }, 50);
+}
+
+function showText1() {
+  document.getElementById("img2").classList.add("hidden");
+  document.getElementById("img1").classList.remove("hidden");
+  let text = "어느 가난한 나무꾼 가족이 살고있었다. 먹을 식량이 부족해져 부부는 아이들을 버리기로 한다. 헨젤과 그레텔은 몰래 빵 부스러기를 떨어트려 돌아가는 길을 남겼지만 동물들이 먹어버려 길을 잃게된다.";
+  let element = document.querySelector("#text1 p");
+  element.innerHTML = "";
+  typeWriter(text, element);
+}
+
+function showText2() {
+  document.getElementById("img1").classList.add("hidden");
+  document.getElementById("img2").classList.remove("hidden");
+  document.getElementById("img3").classList.add("hidden");
+  let text = "그러던 중 숲속에 과자로 되어진 집을 발견하게 된다. 배가 고팠던 남매는 과자집을 먹기 시작했다. 이를 지켜보던 집주인 할머니는 헨젤과 그레텔을 머물게 허락한다.";
+  let element = document.querySelector("#text2 p");
+  element.innerHTML = "";
+  typeWriter(text, element);
+}
+
+function showText3() {
+  document.getElementById("img2").classList.add("hidden");
+  document.getElementById("img3").classList.remove("hidden");
+  document.getElementById("img4").classList.add("hidden");
+  let text = "그러나 사실 할머니는 아이들을 가두어 잡아먹는 마녀 였고, 아이들은 감옥에 갇히게 된다.";
+  let element = document.querySelector("#text3 p");
+  element.innerHTML = "";
+  typeWriter(text, element);
+}
+
+function showText4() {
+  document.getElementById("img3").classList.add("hidden");
+  document.getElementById("img4").classList.remove("hidden");
+  document.getElementById("img5").classList.add("hidden");
+  let text = "헨젤과 그레텔은 서로 다른 감옥에 갇혀 지내게 된다.";
+  let element = document.querySelector("#text4 p");
+  element.innerHTML = "";
+  typeWriter(text, element);
+}
+
+function showText5() {
+  document.getElementById("img4").classList.add("hidden");
+  document.getElementById("img5").classList.remove("hidden");
+  let text = "그러던 중 헨젤을 탈출을 하기로 다짐한다.";
+  let element = document.querySelector("#text5 p");
+  element.innerHTML = "";
+  typeWriter(text, element);
+}
+
+
+    </script>
+  </body>
+</html>
